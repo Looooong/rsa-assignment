@@ -7,5 +7,6 @@ target_sources(rsa
     PRIVATE
         application.cpp
         main.cpp
+        math.cpp
 )
 target_link_libraries(rsa ntl)
