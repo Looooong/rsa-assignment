@@ -1,7 +1,10 @@
-#include <NTL/ZZ.h>
+#include "math.h"
 
 using namespace NTL;
 
 namespace RSA
 {
-} // namespace
+namespace Math
+{
+}
+} // namespace RSA
