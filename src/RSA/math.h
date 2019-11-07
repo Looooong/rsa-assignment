@@ -9,7 +9,9 @@ namespace RSA
 {
 namespace Math
 {
-}
+ZZ ModExp(ZZ b, ZZ e, const ZZ &m);
+void ModExp(ZZ &r, ZZ b, ZZ e, const ZZ &m);
+} // namespace Math
 } // namespace RSA
 
 #endif
