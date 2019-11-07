@@ -11,6 +11,10 @@ Application::Application(int argc, char **argv) : argc(argc), argv(argv)
 
 int Application::execute()
 {
+    if (argc < 2) {
+        return help();
+    }
+
     std::string command = argv[1];
 
     if (command == "generate")

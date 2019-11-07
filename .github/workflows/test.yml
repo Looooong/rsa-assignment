@@ -1,0 +1,22 @@
+name: RSA Tests
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install dependencies
+      run: sudo apt install -qy libntl-dev
+    - name: Install submodules
+      run: |
+        git submodule init
+        git submodule update
+    - name: CMake
+      run: |
+        cmake -Bbuild -H.
+        cmake --build build/ --target rsa_tests
+    - name: Test
+      run: bin/rsa_tests
