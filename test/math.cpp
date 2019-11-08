@@ -3,7 +3,7 @@
 
 using namespace RSA::Math;
 
-TEST_CASE("long FactorPower2(ZZ &n)")
+TEST_CASE("long FactorPower2(ZZ &n)", "[math]")
 {
     ZZ n(0x123456789000);
     long r = FactorPower2(n);

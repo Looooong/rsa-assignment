@@ -12,5 +12,6 @@ target_sources(rsa_tests
     PRIVATE
         main.cpp
         math.cpp
+        math/prime.cpp
 )
 target_link_libraries(rsa_tests rsa_math ntl Catch2::Catch2)
