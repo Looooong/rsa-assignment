@@ -6,6 +6,14 @@ namespace RSA
 {
 namespace Math
 {
+long FactorPower2(ZZ &n)
+{
+    long r;
+    for (r = 0; (n & 1) == 0; r++, n >>= 1)
+        ;
+    return r;
+}
+
 ZZ ModExp(ZZ b, ZZ e, const ZZ &m)
 {
     ZZ r;

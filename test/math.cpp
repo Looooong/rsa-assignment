@@ -3,6 +3,15 @@
 
 using namespace RSA::Math;
 
+TEST_CASE("long FactorPower2(ZZ &n)")
+{
+    ZZ n(0x123456789000);
+    long r = FactorPower2(n);
+
+    REQUIRE(n == 0x123456789);
+    REQUIRE(r == 12);
+}
+
 TEST_CASE("ZZ ModExp(ZZ b, ZZ e, const ZZ &m)", "[math]")
 {
     REQUIRE(ModExp(ZZ(2), ZZ(3), ZZ(5)) == 3);
