@@ -41,6 +41,41 @@ bool compositenessWitness(const ZZ &a, const ZZ &n, long r, const ZZ &d)
     return true;
 }
 
+ZZ Generate(const ZZ &lowerBound, const ZZ &upperBound)
+{
+    ZZ n;
+    Generate(n, lowerBound, upperBound);
+    return n;
+}
+
+void Generate(ZZ &n, const ZZ &lowerBound, const ZZ &upperBound)
+{
+    ZZ bound = upperBound - lowerBound;
+
+    do
+    {
+        n = lowerBound + RandomBnd(bound);
+        n |= 1;
+    } while (!Test(n));
+};
+
+bool Test(const ZZ &n)
+{
+    if (n <= 1)
+        return false;
+
+    for (int i = 0; i < 100; i++)
+    {
+        if (n <= first100[i])
+            return true;
+
+        if (n % first100[i] == 0)
+            return false;
+    }
+
+    return testMillerRabin(n);
+};
+
 bool testMillerRabin(const ZZ &n)
 {
     if (n <= 1)
