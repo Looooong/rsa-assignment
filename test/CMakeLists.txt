@@ -10,8 +10,9 @@ include_directories(../src)
 add_executable(rsa_tests "")
 target_sources(rsa_tests
     PRIVATE
+        key.cpp
         main.cpp
         math.cpp
         math/prime.cpp
 )
-target_link_libraries(rsa_tests rsa_math ntl Catch2::Catch2)
+target_link_libraries(rsa_tests rsa_key rsa_math ntl Catch2::Catch2)

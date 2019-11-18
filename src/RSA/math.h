@@ -12,6 +12,8 @@ namespace Math
 long FactorPower2(ZZ &n);
 ZZ ModExp(ZZ b, ZZ e, const ZZ &m);
 void ModExp(ZZ &r, ZZ b, ZZ e, const ZZ &m);
+ZZ ModInv(const ZZ &a, const ZZ &m);
+void ModInv(ZZ &b, const ZZ &a, const ZZ &m);
 } // namespace Math
 } // namespace RSA
 
