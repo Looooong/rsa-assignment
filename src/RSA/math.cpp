@@ -37,5 +37,15 @@ void ModExp(ZZ &r, ZZ b, ZZ e, const ZZ &m)
         b = (b * b) % m;
     }
 }
+
+ZZ ModInv(const ZZ &a, const ZZ &m) {
+    ZZ b;
+    ModInv(b, a, m);
+    return b;
+}
+
+void ModInv(ZZ &b, const ZZ &a, const ZZ &m) {
+    InvMod(b, a, m);
+}
 } // namespace Math
 } // namespace RSA
