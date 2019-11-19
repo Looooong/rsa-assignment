@@ -1,5 +1,6 @@
 #include <string>
 #include "catch2/catch.hpp"
+#include "RSA/math.h"
 #include "RSA/private_key.h"
 
 using namespace RSA;
@@ -12,6 +13,7 @@ TEST_CASE("RSA::PrivateKey::PrivateKey(int size = 0)", "[key]")
         {
             PrivateKey key(i);
 
+            REQUIRE(Math::ModExp(Math::ModExp(ZZ(127), key.e, key.n), key.d, key.n) == 127);
             REQUIRE(key.e == DEFAULT_E);
             REQUIRE(key.dP == InvMod(key.e, key.p - 1));
             REQUIRE(key.dQ == InvMod(key.e, key.q - 1));
@@ -25,7 +27,7 @@ TEST_CASE("RSA::PrivateKey::PrivateKey(int size = 0)", "[key]")
 
 TEST_CASE(
     "long RSA::PublicKey::Encrypt(unsigned char *ciphertext, unsigned char const *const plaintext, long length)\n"
-    "long RSA::PrivateKey::Descrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length)",
+    "long RSA::PrivateKey::Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length)",
     "[key]")
 {
     PrivateKey privateKey(1024);
@@ -36,7 +38,7 @@ TEST_CASE(
     unsigned char plaintext[1024];
 
     ciphertextLength = privateKey.publicKey().Encrypt(ciphertext, message, length);
-    plaintextLength = privateKey.Descrypt(plaintext, ciphertext, ciphertextLength);
+    plaintextLength = privateKey.Decrypt(plaintext, ciphertext, ciphertextLength);
 
     REQUIRE(plaintextLength == length);
 

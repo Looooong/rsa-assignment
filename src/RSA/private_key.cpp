@@ -25,6 +25,7 @@ PrivateKey::PrivateKey(int size) : e(DEFAULT_E)
 
     n = p * q;
 
+    Math::ModInv(d, e, (p - 1) * (q - 1));
     Math::ModInv(dP, e, p - 1);
     Math::ModInv(dQ, e, q - 1);
     Math::ModInv(qInv, q, p);
@@ -35,7 +36,7 @@ PublicKey PrivateKey::publicKey()
     return PublicKey(n, e);
 }
 
-long PrivateKey::Descrypt(unsigned char *plaintext, unsigned char const *const ciphertext, long length)
+long PrivateKey::Decrypt(unsigned char *plaintext, unsigned char const *const ciphertext, long length)
 {
     ZZ c, h, m, m1, m2;
 
