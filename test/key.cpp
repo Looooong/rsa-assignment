@@ -21,6 +21,8 @@ TEST_CASE("RSA::PrivateKey::PrivateKey(int size = 0)", "[key]")
             REQUIRE(key.qInv == InvMod(key.q, key.p));
         }
     }
+    PrivateKey key(128);
+    key.ExportToFile((char*) "conbocuoi.txt");
 }
 
 TEST_CASE(

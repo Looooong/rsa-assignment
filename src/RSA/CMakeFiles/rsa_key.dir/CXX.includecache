@@ -6,6 +6,10 @@
 
 #IncludeRegexTransform: 
 
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/base64.h
+string
+-
+
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
 NTL/ZZ.h
 -
@@ -21,6 +25,14 @@ math.h
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
 math/prime.h
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.h
+base64.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/base64.h
+tinyxml.h
+-
+fstream
+-
+string
+-
 
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/private_key.h
 NTL/ZZ.h

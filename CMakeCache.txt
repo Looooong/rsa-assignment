@@ -324,6 +324,9 @@ SLURM_SRUN_COMMAND:FILEPATH=SLURM_SRUN_COMMAND-NOTFOUND
 SVNCOMMAND:FILEPATH=/usr/bin/svn
 
 //Dependencies for target
+base64_LIB_DEPENDS:STATIC=
+
+//Dependencies for target
 rsa_key_LIB_DEPENDS:STATIC=
 
 //Dependencies for target

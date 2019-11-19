@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/base64.cpp
+base64.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/base64.h
+iostream
+-
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/base64.h
+string
+-
+

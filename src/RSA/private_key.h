@@ -16,6 +16,7 @@ public:
     PrivateKey(int size = 0);
 
     ZZ e;
+    ZZ d;
     ZZ dP;
     ZZ dQ;
     ZZ n;
@@ -25,6 +26,8 @@ public:
 
     PublicKey publicKey();
     long Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
+    void ExportToFile(char* file);
+    void ImportFromFile(char* file);
 };
 } // namespace RSA
 

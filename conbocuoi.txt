@@ -1,0 +1,10 @@
+<RSAPrivateKey>
+    <modulus>212761886072873969756895349749651176893</modulus>
+    <publicExponent>65537</publicExponent>
+    <privateExponent>171314596763134708364884769117389655873</privateExponent>
+    <prime1>30113190729022056533</prime1>
+    <prime2>7065404924620670921</prime2>
+    <exponent1>14104774643465371765</exponent1>
+    <exponent2>7006757438788337353</exponent2>
+    <coefficient>16933461881427685608</coefficient>
+</RSAPrivateKey>

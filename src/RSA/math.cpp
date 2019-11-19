@@ -1,5 +1,5 @@
 #include "math.h"
-
+#include <sstream>
 using namespace NTL;
 
 namespace RSA
@@ -65,6 +65,13 @@ void EGCD(ZZ &g, ZZ &x, ZZ &y, const ZZ &a, const ZZ &b)
     EGCD(g, y, x, ta, tb);
     x = x - (b / a) * y;
     return;
+}
+
+std::string zToString(const ZZ &z)
+{
+    std::stringstream buffer;
+    buffer << z;
+    return buffer.str();
 }
 } // namespace Math
 } // namespace RSA
