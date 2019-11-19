@@ -15,6 +15,7 @@ class PrivateKey
 public:
     PrivateKey(int size = 0);
 
+    ZZ d;
     ZZ e;
     ZZ dP;
     ZZ dQ;
@@ -24,7 +25,7 @@ public:
     ZZ qInv;
 
     PublicKey publicKey();
-    long Descrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
+    long Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
 };
 } // namespace RSA
 
