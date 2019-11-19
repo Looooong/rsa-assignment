@@ -25,7 +25,7 @@ TEST_CASE("RSA::PrivateKey::PrivateKey(int size = 0)", "[key]")
 
 TEST_CASE(
     "long RSA::PublicKey::Encrypt(unsigned char *ciphertext, unsigned char const *const plaintext, long length)\n"
-    "long RSA::PrivateKey::Descrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length)",
+    "long RSA::PrivateKey::Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length)",
     "[key]")
 {
     PrivateKey privateKey(1024);
@@ -36,7 +36,7 @@ TEST_CASE(
     unsigned char plaintext[1024];
 
     ciphertextLength = privateKey.publicKey().Encrypt(ciphertext, message, length);
-    plaintextLength = privateKey.Descrypt(plaintext, ciphertext, ciphertextLength);
+    plaintextLength = privateKey.Decrypt(plaintext, ciphertext, ciphertextLength);
 
     REQUIRE(plaintextLength == length);
 

@@ -25,7 +25,7 @@ int Application::execute()
     {
         return notImplemented();
     }
-    else if (command == "descrypt")
+    else if (command == "decrypt")
     {
         return notImplemented();
     }
@@ -93,7 +93,7 @@ int Application::help()
             "Available commands:\n"
             "\tgenerate\tGenerate RSA key pairs\n"
             "\tencrypt \tEncrypt data given a public key\n"
-            "\tdescrypt\tDecrypt data given a private key\n"
+            "\tdecrypt\tDecrypt data given a private key\n"
             "\thelp    \tYou are looking at it\n"
             "See 'rsa help <command>' to read about a specific subcommand.\n");
     }

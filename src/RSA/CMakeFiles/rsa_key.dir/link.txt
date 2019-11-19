@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/librsa_key.a  CMakeFiles/rsa_key.dir/private_key.cpp.o CMakeFiles/rsa_key.dir/public_key.cpp.o
+/usr/bin/ranlib ../../lib/librsa_key.a

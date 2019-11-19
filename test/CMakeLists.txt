@@ -16,3 +16,7 @@ target_sources(rsa_tests
         math/prime.cpp
 )
 target_link_libraries(rsa_tests rsa_key rsa_math ntl Catch2::Catch2)
+
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
+target_link_libraries(rsa_tests Threads::Threads gmp)

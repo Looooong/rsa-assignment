@@ -1,0 +1,40 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+NTL/ZZ.h
+-
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.h
+../math.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/private_key.cpp
+private_key.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/private_key.h
+math.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+math/prime.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/private_key.h
+NTL/ZZ.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/NTL/ZZ.h
+public_key.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/public_key.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/public_key.cpp
+math.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+public_key.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/public_key.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/public_key.h
+NTL/ZZ.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/NTL/ZZ.h
+

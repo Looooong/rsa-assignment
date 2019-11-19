@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.cpp
+math.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+NTL/ZZ.h
+-
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.cpp
+prime.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.h
+
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math/prime.h
+../math.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+

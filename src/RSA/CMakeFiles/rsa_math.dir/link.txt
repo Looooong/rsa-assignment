@@ -1,0 +1,2 @@
+/usr/bin/ar qc ../../lib/librsa_math.a  CMakeFiles/rsa_math.dir/math.cpp.o CMakeFiles/rsa_math.dir/math/prime.cpp.o
+/usr/bin/ranlib ../../lib/librsa_math.a

@@ -24,7 +24,7 @@ public:
     ZZ qInv;
 
     PublicKey publicKey();
-    long Descrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
+    long Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
 };
 } // namespace RSA
 
