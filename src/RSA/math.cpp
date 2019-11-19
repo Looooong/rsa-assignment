@@ -44,8 +44,27 @@ ZZ ModInv(const ZZ &a, const ZZ &m) {
     return b;
 }
 
-void ModInv(ZZ &b, const ZZ &a, const ZZ &m) {
-    InvMod(b, a, m);
+void ModInv(ZZ &b, const ZZ &a, const ZZ &m)
+{
+    ZZ g, x, y;
+    EGCD(g, x, y, a, m);
+    if (g != 1)
+        throw 10;
+    else
+        b = x % m;
+}
+
+void EGCD(ZZ &g, ZZ &x, ZZ &y, const ZZ &a, const ZZ &b) 
+{
+    if (a == 0)
+    {
+        g = b, x = 0, y = 1;
+        return;
+    }
+    ZZ ta = b % a, tb = a;
+    EGCD(g, y, x, ta, tb);
+    x = x - (b / a) * y;
+    return;
 }
 } // namespace Math
 } // namespace RSA

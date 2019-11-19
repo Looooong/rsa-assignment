@@ -14,6 +14,8 @@ ZZ ModExp(ZZ b, ZZ e, const ZZ &m);
 void ModExp(ZZ &r, ZZ b, ZZ e, const ZZ &m);
 ZZ ModInv(const ZZ &a, const ZZ &m);
 void ModInv(ZZ &b, const ZZ &a, const ZZ &m);
+// (g, x, y) = EGCD(a, b)
+void EGCD(ZZ &g, ZZ &x, ZZ &y, const ZZ &a, const ZZ &b);
 } // namespace Math
 } // namespace RSA
 

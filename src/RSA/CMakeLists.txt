@@ -11,4 +11,4 @@ target_sources(rsa
         application.cpp
         main.cpp
 )
-target_link_libraries(rsa rsa_key rsa_math ntl)
+target_link_libraries(rsa rsa_key rsa_math ntl tinyxml)

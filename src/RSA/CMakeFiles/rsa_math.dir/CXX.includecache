@@ -9,6 +9,8 @@
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math.cpp
 math.h
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
+tinyxml.h
+/home/xoac/WorkSpace/rsa-assignment/src/RSA/tinyxml.h
 
 /home/xoac/WorkSpace/rsa-assignment/src/RSA/math.h
 NTL/ZZ.h
