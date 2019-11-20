@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <string>
 #include "catch2/catch.hpp"
 #include "RSA/math.h"
@@ -46,4 +47,44 @@ TEST_CASE(
     {
         REQUIRE(plaintext[i] == message[i]);
     }
+}
+
+TEST_CASE(
+    "void RSA::PrivateKey::Read(std::string path)"
+    "void RSA::PrivateKey::Write(std::string path)",
+    "[key]")
+{
+    PrivateKey key(1024);
+    key.Write("key.json");
+
+    PrivateKey other_key;
+    other_key.Read("key.json");
+
+    REQUIRE(key.d == other_key.d);
+    REQUIRE(key.e == other_key.e);
+    REQUIRE(key.dP == other_key.dP);
+    REQUIRE(key.dQ == other_key.dQ);
+    REQUIRE(key.n == other_key.n);
+    REQUIRE(key.p == other_key.p);
+    REQUIRE(key.q == other_key.q);
+    REQUIRE(key.qInv == other_key.qInv);
+
+    remove("key.json");
+}
+
+TEST_CASE(
+    "void RSA::PublicKey::Read(std::string path)"
+    "void RSA::PublicKey::Write(std::string path)",
+    "[key]")
+{
+    PublicKey key = PrivateKey(1024).publicKey();
+    key.Write("key.json");
+
+    PublicKey other_key;
+    other_key.Read("key.json");
+
+    REQUIRE(key.e == other_key.e);
+    REQUIRE(key.n == other_key.n);
+
+    remove("key.json");
 }
