@@ -13,8 +13,11 @@ public:
     ZZ e;
     ZZ n;
 
+    PublicKey();
     PublicKey(const ZZ &n, const ZZ &e);
     long Encrypt(unsigned char *ciphertext, unsigned char const *const plaintext, long length);
+    void Read(std::string path);
+    void Write(std::string path);
 };
 } // namespace RSA
 

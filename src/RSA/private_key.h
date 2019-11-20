@@ -26,6 +26,8 @@ public:
 
     PublicKey publicKey();
     long Decrypt(unsigned char * plaintext, unsigned char const * const ciphertext, long length);
+    void Read(std::string path);
+    void Write(std::string path);
 };
 } // namespace RSA
 
