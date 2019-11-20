@@ -16,8 +16,9 @@ private:
     int argc;
     char **argv;
 
-    int invalidCommand(std::string command);
+    int Generate();
     int help();
+    int invalidCommand(std::string command);
     int notImplemented();
 };
 } // namespace RSA
