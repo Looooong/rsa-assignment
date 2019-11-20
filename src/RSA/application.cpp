@@ -1,7 +1,10 @@
 #include <getopt.h>
+#include <iostream>
 #include <stdio.h>
 #include <string>
 #include "application.h"
+#include "public_key.h"
+#include "private_key.h"
 
 namespace RSA
 {
@@ -11,15 +14,17 @@ Application::Application(int argc, char **argv) : argc(argc), argv(argv)
 
 int Application::execute()
 {
-    if (argc < 2) {
+    if (argc < 2)
+    {
         return help();
     }
 
+    optind = 2;
     std::string command = argv[1];
 
     if (command == "generate")
     {
-        return notImplemented();
+        return Generate();
     }
     else if (command == "encrypt")
     {
@@ -39,10 +44,83 @@ int Application::execute()
     }
 }
 
-int Application::invalidCommand(std::string command)
+int Application::Generate()
 {
-    printf("Action '%s' is not a valid command. See 'rsa help'.\n", command.c_str());
-    return 1;
+    int c, i, size = 0;
+    std::string private_key_path, public_key_path;
+    option long_options[] = {
+        {"private-key", required_argument, 0, 0},
+        {"public-key", required_argument, 0, 0},
+        {"size", required_argument, 0, 's'}};
+
+    while (true)
+    {
+        c = getopt_long(argc, argv, "s:", long_options, &i);
+
+        if (c == -1)
+            break;
+
+        switch (c)
+        {
+        case 0:
+            switch (i)
+            {
+            case 0:
+                private_key_path = optarg;
+                break;
+
+            case 1:
+                public_key_path = optarg;
+                break;
+
+            case 2:
+                size = std::atoi(optarg);
+                break;
+            }
+            break;
+
+        case 's':
+            size = std::atoi(optarg);
+            break;
+
+        default:
+            printf("Invalid command.");
+            return 1;
+        }
+    }
+
+    if (size <= 0)
+    {
+        std::cout << "Size must be greater than 0.\n";
+        return 1;
+    }
+
+    if (private_key_path.length() == 0)
+    {
+        std::cout << "Missing option --private-key.\n";
+        return 1;
+    }
+
+    if (public_key_path.length() == 0)
+    {
+        std::cout << "Missing option --public-key.\n";
+        return 1;
+    }
+
+    std::cout << "Generating public-private key pairs with " << size << "-bits modulus...\n";
+
+    PrivateKey private_key(size);
+    PublicKey public_key = private_key.publicKey();
+
+    std::cout << "Writing public key to \"" << public_key_path << "\"...\n";
+
+    public_key.Write(public_key_path);
+
+    std::cout << "Writing private key to \"" << private_key_path << "\"...\n";
+
+    private_key.Write(private_key_path);
+
+    std::cout << "Done.\n";
 }
 
 int Application::help()
@@ -54,10 +132,11 @@ int Application::help()
         if (command == "generate")
         {
             printf(
-                "Usage: rsa generate --public-key=<file> --private-key=<file>\n"
+                "Usage: rsa generate --size=<number> --public-key=<file> --private-key=<file>\n"
                 "Options:\n"
-                "\t--public-key <file> \tWhere to store public key\n"
-                "\t--private-key <file>\tWhere to store private key\n");
+                "\t-s, --size <number>     \tThe modulus bit-length\n"
+                "\t    --public-key <file> \tWhere to store public key\n"
+                "\t    --private-key <file>\tWhere to store private key\n");
         }
         else if (command == "encrypt")
         {
@@ -97,6 +176,12 @@ int Application::help()
             "\thelp    \tYou are looking at it\n"
             "See 'rsa help <command>' to read about a specific subcommand.\n");
     }
+}
+
+int Application::invalidCommand(std::string command)
+{
+    printf("Action '%s' is not a valid command. See 'rsa help'.\n", command.c_str());
+    return 1;
 }
 
 int Application::notImplemented()
