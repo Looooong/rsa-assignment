@@ -22,7 +22,7 @@ TEST_CASE("ZZ RSA::Math::ModExp(ZZ b, ZZ e, const ZZ &m)", "[math]")
     REQUIRE(ModExp(ZZ(987), ZZ(654), ZZ(321)) == 57);
 }
 
-TEST_CASE("ZZ RSA::Math::ModInv(const ZZ &a, const ZZ &m)")
+TEST_CASE("ZZ RSA::Math::ModInv(const ZZ &a, const ZZ &m)", "[math]")
 {
     REQUIRE(ModInv(ZZ(3), ZZ(7)) == 5);
     REQUIRE(ModInv(ZZ(3), ZZ(10)) == 7);

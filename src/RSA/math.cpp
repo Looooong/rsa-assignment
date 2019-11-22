@@ -38,14 +38,36 @@ void ModExp(ZZ &r, ZZ b, ZZ e, const ZZ &m)
     }
 }
 
-ZZ ModInv(const ZZ &a, const ZZ &m) {
+ZZ ModInv(const ZZ &a, const ZZ &m)
+{
     ZZ b;
     ModInv(b, a, m);
     return b;
 }
 
-void ModInv(ZZ &b, const ZZ &a, const ZZ &m) {
-    InvMod(b, a, m);
+void ModInv(ZZ &b, const ZZ &a, const ZZ &m)
+{
+    b = 0;
+    ZZ newB(1), r(m), newR(a), q, temp;
+
+    while (newR != 0)
+    {
+        q = r / newR;
+
+        temp = b;
+        b = newB;
+        newB = temp - q * newB;
+
+        temp = r;
+        r = newR;
+        newR = temp - q * newR;
+    }
+
+    if (r > 1)
+        throw "a is not invertible";
+
+    if (b < 0)
+        b = b + m;
 }
 } // namespace Math
 } // namespace RSA
