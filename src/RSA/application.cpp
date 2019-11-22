@@ -1,7 +1,6 @@
+#include <fstream>
 #include <getopt.h>
-#include <iostream>
 #include <stdio.h>
-#include <string>
 #include "application.h"
 #include "public_key.h"
 #include "private_key.h"
@@ -12,11 +11,11 @@ Application::Application(int argc, char **argv) : argc(argc), argv(argv)
 {
 }
 
-int Application::execute()
+int Application::Execute()
 {
     if (argc < 2)
     {
-        return help();
+        return Help();
     }
 
     optind = 2;
@@ -28,20 +27,174 @@ int Application::execute()
     }
     else if (command == "encrypt")
     {
-        return notImplemented();
+        return Encrypt();
     }
     else if (command == "decrypt")
     {
-        return notImplemented();
+        return Decrypt();
     }
     else if (command == "help")
     {
-        return help();
+        return Help();
     }
     else
     {
-        return invalidCommand(command);
+        return InvalidCommand(command);
     }
+}
+
+void Application::CloseInputStream(std::istream *input)
+{
+    if (input != &std::cin)
+        delete input;
+}
+
+void Application::CloseOutputStream(std::ostream *output)
+{
+    if (output != &std::cout)
+        delete output;
+}
+
+int Application::Decrypt()
+{
+    int c, i;
+    std::string input_file, output_file, private_key_path;
+    option long_options[] = {
+        {"input", required_argument, 0, 'i'},
+        {"output", required_argument, 0, 'o'},
+        {"private-key", required_argument, 0, 0}};
+
+    while (true)
+    {
+        c = getopt_long(argc, argv, "i:o:", long_options, &i);
+
+        if (c == -1)
+            break;
+
+        switch (c)
+        {
+        case 0:
+            switch (i)
+            {
+            case 2:
+                private_key_path = optarg;
+                break;
+
+            default:
+                return InvalidCommand();
+            }
+            break;
+
+        case 'i':
+            input_file = optarg;
+            break;
+
+        case 'o':
+            output_file = optarg;
+            break;
+
+        default:
+            return InvalidCommand();
+        }
+    }
+
+    if (private_key_path.length() == 0)
+    {
+        std::cout << "Missing option --private-key.\n";
+        return 1;
+    }
+
+    PrivateKey key;
+    key.Read(private_key_path);
+
+    std::istream *input = GetInputStream(input_file);
+    std::ostream *output = GetOutputStream(output_file);
+
+    int length = NumBytes(key.n);
+    char *cipertext = new char[length];
+    char *plaintext = new char[length];
+
+    input->read(cipertext, length);
+    length = input->gcount();
+    length = key.Decrypt((unsigned char *)plaintext, (unsigned char *)cipertext, length);
+    output->write(plaintext, length);
+
+    delete cipertext;
+    delete plaintext;
+
+    CloseInputStream(input);
+    CloseOutputStream(output);
+}
+
+int Application::Encrypt()
+{
+    int c, i;
+    std::string input_file, output_file, public_key_path;
+    option long_options[] = {
+        {"input", required_argument, 0, 'i'},
+        {"output", required_argument, 0, 'o'},
+        {"public-key", required_argument, 0, 0}};
+
+    while (true)
+    {
+        c = getopt_long(argc, argv, "i:o:", long_options, &i);
+
+        if (c == -1)
+            break;
+
+        switch (c)
+        {
+        case 0:
+            switch (i)
+            {
+            case 2:
+                public_key_path = optarg;
+                break;
+
+            default:
+                return InvalidCommand();
+            }
+            break;
+
+        case 'i':
+            input_file = optarg;
+            break;
+
+        case 'o':
+            output_file = optarg;
+            break;
+
+        default:
+            return InvalidCommand();
+        }
+    }
+
+    if (public_key_path.length() == 0)
+    {
+        std::cout << "Missing option --public-key.\n";
+        return 1;
+    }
+
+    PublicKey key;
+    key.Read(public_key_path);
+
+    std::istream *input = GetInputStream(input_file);
+    std::ostream *output = GetOutputStream(output_file);
+
+    int length = NumBytes(key.n) - 1;
+    char *cipertext = new char[length];
+    char *plaintext = new char[length];
+
+    input->read(plaintext, length);
+    length = input->gcount();
+    length = key.Encrypt((unsigned char *)cipertext, (unsigned char *)plaintext, length);
+    output->write(cipertext, length);
+
+    delete cipertext;
+    delete plaintext;
+
+    CloseInputStream(input);
+    CloseOutputStream(output);
 }
 
 int Application::Generate()
@@ -73,9 +226,8 @@ int Application::Generate()
                 public_key_path = optarg;
                 break;
 
-            case 2:
-                size = std::atoi(optarg);
-                break;
+            default:
+                return InvalidCommand();
             }
             break;
 
@@ -84,8 +236,7 @@ int Application::Generate()
             break;
 
         default:
-            printf("Invalid command.");
-            return 1;
+            return InvalidCommand();
         }
     }
 
@@ -123,7 +274,31 @@ int Application::Generate()
     std::cout << "Done.\n";
 }
 
-int Application::help()
+std::istream *Application::GetInputStream(std::string path)
+{
+    if (path.length() == 0)
+    {
+        return &std::cin;
+    }
+    else
+    {
+        return new std::ifstream(path, std::ios::binary);
+    }
+}
+
+std::ostream *Application::GetOutputStream(std::string path)
+{
+    if (path.length() == 0)
+    {
+        return &std::cout;
+    }
+    else
+    {
+        return new std::ofstream(path, std::ios::binary);
+    }
+}
+
+int Application::Help()
 {
     if (argc >= 3)
     {
@@ -162,7 +337,7 @@ int Application::help()
         }
         else
         {
-            return invalidCommand(command);
+            return InvalidCommand(command);
         }
     }
     else
@@ -178,14 +353,15 @@ int Application::help()
     }
 }
 
-int Application::invalidCommand(std::string command)
+int Application::InvalidCommand()
 {
-    printf("Action '%s' is not a valid command. See 'rsa help'.\n", command.c_str());
+    std::cout << "Invalid command. See 'rsa help'.\n";
     return 1;
 }
 
-int Application::notImplemented()
+int Application::InvalidCommand(std::string command)
 {
-    printf("Not implemented.\n");
+    printf("Action '%s' is not a valid command. See 'rsa help'.\n", command.c_str());
+    return 1;
 }
 } // namespace RSA
