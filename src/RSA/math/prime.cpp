@@ -6,7 +6,7 @@ namespace Math
 {
 namespace Prime
 {
-bool compositenessWitness(const ZZ &a, const ZZ &n)
+bool CompositenessWitness(const ZZ &a, const ZZ &n)
 {
     if (a == 0)
         return false;
@@ -14,10 +14,10 @@ bool compositenessWitness(const ZZ &a, const ZZ &n)
     ZZ d = n - 1;
     long r = FactorPower2(d);
 
-    return compositenessWitness(a, n, r, d);
+    return CompositenessWitness(a, n, r, d);
 }
 
-bool compositenessWitness(const ZZ &a, const ZZ &n, long r, const ZZ &d)
+bool CompositenessWitness(const ZZ &a, const ZZ &n, long r, const ZZ &d)
 {
     if (a == 0)
         return false;
@@ -73,10 +73,10 @@ bool Test(const ZZ &n)
             return false;
     }
 
-    return testMillerRabin(n);
+    return TestMillerRabin(n);
 };
 
-bool testMillerRabin(const ZZ &n)
+bool TestMillerRabin(const ZZ &n)
 {
     if (n <= 1)
         return false;
@@ -85,7 +85,7 @@ bool testMillerRabin(const ZZ &n)
     ZZ d = nMinus1;
     long r = FactorPower2(d);
 
-    if (compositenessWitness(ZZ(2), n, r, d))
+    if (CompositenessWitness(ZZ(2), n, r, d))
         return false;
 
     ZZ a;
@@ -94,7 +94,7 @@ bool testMillerRabin(const ZZ &n)
     {
         RandomBnd(a, nMinus1);
 
-        if (compositenessWitness(a, n, r, d))
+        if (CompositenessWitness(a, n, r, d))
             return false;
     }
 
