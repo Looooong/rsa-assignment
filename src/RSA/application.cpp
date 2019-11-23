@@ -263,11 +263,11 @@ int Application::Generate()
     PrivateKey private_key(size);
     PublicKey public_key = private_key.publicKey();
 
-    std::cout << "Writing public key to \"" << public_key_path << "\"...\n";
+    std::cout << "Writing public key to '" << public_key_path << "'...\n";
 
     public_key.Write(public_key_path);
 
-    std::cout << "Writing private key to \"" << private_key_path << "\"...\n";
+    std::cout << "Writing private key to '" << private_key_path << "'...\n";
 
     private_key.Write(private_key_path);
 
@@ -306,34 +306,31 @@ int Application::Help()
 
         if (command == "generate")
         {
-            printf(
-                "Usage: rsa generate --size=<number> --public-key=<file> --private-key=<file>\n"
-                "Options:\n"
-                "\t-s, --size <number>     \tThe modulus bit-length\n"
-                "\t    --public-key <file> \tWhere to store public key\n"
-                "\t    --private-key <file>\tWhere to store private key\n");
+            std::cout << "Usage: rsa generate --size=<number> --public-key=<file> --private-key=<file>\n"
+                         "Options:\n"
+                         "\t-s, --size <number>     \tThe modulus bit-length\n"
+                         "\t    --public-key <file> \tWhere to store public key\n"
+                         "\t    --private-key <file>\tWhere to store private key\n";
         }
         else if (command == "encrypt")
         {
-            printf(
-                "Usage: rsa encrypt --public-key=<file> [--input=<file>] [--output=<file>]\n"
-                "Options:\n"
-                "\t    --public-key <file>\tPath to public key\n"
-                "\t-i, --input <file>     \tEncrypt data in this file.\n"
-                "\t                       \tIf not specified, read from standard input.\n"
-                "\t-o, --output <file>    \tWhere to store encrypted data.\n"
-                "\t                       \tIf not specified, write to standard output.\n");
+            std::cout << "Usage: rsa encrypt --public-key=<file> [--input=<file>] [--output=<file>]\n"
+                         "Options:\n"
+                         "\t    --public-key <file>\tPath to public key\n"
+                         "\t-i, --input <file>     \tEncrypt data in this file.\n"
+                         "\t                       \tIf not specified, read from standard input.\n"
+                         "\t-o, --output <file>    \tWhere to store encrypted data.\n"
+                         "\t                       \tIf not specified, write to standard output.\n";
         }
         else if (command == "decrypt")
         {
-            printf(
-                "Usage: rsa decrypt --private-key=<file> [--input=<file>] [--output=<file>]\n"
-                "Options:\n"
-                "\t    --private-key=<file>\tPath to private key\n"
-                "\t-i, --input=<file>      \tDecrypt data in this file.\n"
-                "\t                        \tIf not specified, read from standard input.\n"
-                "\t-o, --output=<file>     \tWhere to store decrypted data.\n"
-                "\t                        \tIf not specified, write to standard output.\n");
+            std::cout << "Usage: rsa decrypt --private-key=<file> [--input=<file>] [--output=<file>]\n"
+                         "Options:\n"
+                         "\t    --private-key=<file>\tPath to private key\n"
+                         "\t-i, --input=<file>      \tDecrypt data in this file.\n"
+                         "\t                        \tIf not specified, read from standard input.\n"
+                         "\t-o, --output=<file>     \tWhere to store decrypted data.\n"
+                         "\t                        \tIf not specified, write to standard output.\n";
         }
         else
         {
@@ -342,14 +339,13 @@ int Application::Help()
     }
     else
     {
-        printf(
-            "Usage: rsa <command> [<args>]\n"
-            "Available commands:\n"
-            "\tgenerate\tGenerate RSA key pairs\n"
-            "\tencrypt \tEncrypt data given a public key\n"
-            "\tdecrypt \tDecrypt data given a private key\n"
-            "\thelp    \tYou are looking at it\n"
-            "See 'rsa help <command>' to read about a specific subcommand.\n");
+        std::cout << "Usage: rsa <command> [<args>]\n"
+                     "Available commands:\n"
+                     "\tgenerate\tGenerate RSA key pairs\n"
+                     "\tencrypt \tEncrypt data given a public key\n"
+                     "\tdecrypt \tDecrypt data given a private key\n"
+                     "\thelp    \tYou are looking at it\n"
+                     "See 'rsa help <command>' to read about a specific subcommand.\n";
     }
 }
 
@@ -361,7 +357,7 @@ int Application::InvalidCommand()
 
 int Application::InvalidCommand(std::string command)
 {
-    printf("Action '%s' is not a valid command. See 'rsa help'.\n", command.c_str());
+    std::cout << "Action '" << command << "' is not a valid command. See 'rsa help'.\n";
     return 1;
 }
 } // namespace RSA
